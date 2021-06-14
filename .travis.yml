@@ -1,0 +1,22 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t javiergt85/multi-docker-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true javiergt85/multi-docker-test npm run test
+
+after_success:
+  - docker build -t javiergt85/multi-docker-client ./client
+  - docker build -t javiergt85/multi-docker-nginx ./nginx
+  - docker build -t javiergt85/multi-docker-worker ./worker
+  - docker build -t javiergt85/multi-docker-server ./server
+  # log in docker cli
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_UD" --password-stdin
+  - docker push javiergt85/multi-docker-client
+  - docker push javiergt85/multi-docker-nginx
+  - docker push javiergt85/multi-docker-server
+  - docker push javiergt85/multi-docker-worker
