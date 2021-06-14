@@ -15,7 +15,7 @@ after_success:
   - docker build -t javiergt85/multi-docker-worker ./worker
   - docker build -t javiergt85/multi-docker-server ./server
   # log in docker cli
-  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_UD" --password-stdin
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push javiergt85/multi-docker-client
   - docker push javiergt85/multi-docker-nginx
   - docker push javiergt85/multi-docker-server
