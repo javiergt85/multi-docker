@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        
+        <h1>Fib Calculator</h1>
         <div>
           <Route exact path="/" component={Fib} />
           <Route path="/otherpage" component={OtherPage} />
